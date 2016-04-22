@@ -1,0 +1,5 @@
+package speci
+
+var (
+	AppName = ""
+)
