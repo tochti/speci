@@ -19,10 +19,22 @@ type (
 )
 
 // Read PostgreSQL settings from env
-func ReadPostgreSQL() (*PostgreSQL, error) {
+func ReadPostgreSQL(prefix string) (*PostgreSQL, error) {
 	sqlS := &PostgreSQL{}
 
-	err := envconfig.Process(AppName, sqlS)
+	err := envconfig.Process(prefix, sqlS)
+
+	if sqlS.User == "" {
+		return &PostgreSQL{}, missingFieldError{"user", "PostgreSQL"}
+	} else if sqlS.Password == "" {
+		return &PostgreSQL{}, missingFieldError{"password", "PostgreSQL"}
+	} else if sqlS.Host == "" {
+		return &PostgreSQL{}, missingFieldError{"host", "PostgreSQL"}
+	} else if sqlS.Port == "" {
+		return &PostgreSQL{}, missingFieldError{"port", "PostgreSQL"}
+	} else if sqlS.DBName == "" {
+		return &PostgreSQL{}, missingFieldError{"database name", "PostgreSQL"}
+	}
 
 	if err != nil {
 		return nil, err

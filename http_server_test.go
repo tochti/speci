@@ -11,7 +11,7 @@ func TestReadServer(t *testing.T) {
 	os.Setenv("HTTP_HOST", "127.0.0.1")
 	os.Setenv("HTTP_PORT", "9090")
 
-	srv, err := ReadHTTPServer()
+	srv, err := ReadHTTPServer("")
 
 	if err != nil {
 		t.Fatal(err)
@@ -27,10 +27,10 @@ func TestReadServer(t *testing.T) {
 func TestReadServer_WrongConfig(t *testing.T) {
 	os.Clearenv()
 
-	_, err := ReadHTTPServer()
+	_, err := ReadHTTPServer("")
 
-	if err != ErrHTTPServer {
-		t.Fatal("Expect %v", ErrHTTPServer.Error())
+	if err == nil {
+		t.Fatal("Expect error")
 	}
 
 }

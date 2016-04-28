@@ -1,14 +1,9 @@
 package speci
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/kelseyhightower/envconfig"
-)
-
-var (
-	ErrHTTPServer = errors.New("Wrong HTTP-Server config")
 )
 
 type (
@@ -18,15 +13,17 @@ type (
 	}
 )
 
-func ReadHTTPServer() (*HTTPServerSpecs, error) {
+func ReadHTTPServer(prefix string) (*HTTPServerSpecs, error) {
 	specs := &HTTPServerSpecs{}
-	err := envconfig.Process(AppName, specs)
+	err := envconfig.Process(prefix, specs)
 	if err != nil {
 		return nil, err
 	}
 
 	if specs.Host == "" {
-		return nil, ErrHTTPServer
+		return nil, missingFieldError{"host", "HTTP-Server"}
+	} else if specs.Port == 0 {
+		return nil, missingFieldError{"port", "HTTP-Server"}
 	}
 
 	return specs, nil

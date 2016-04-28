@@ -16,8 +16,7 @@ func TestPostgreSQL(t *testing.T) {
 	os.Setenv("T_POSTGRESQL_DB_NAME", "n")
 	os.Setenv("T_POSTGRESQL_SSL_MODE", "allow")
 
-	AppName = "t"
-	sqlS, err := ReadPostgreSQL()
+	sqlS, err := ReadPostgreSQL("t")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -42,8 +41,7 @@ func TestPostgreSQL_MissingSSLMode(t *testing.T) {
 	os.Setenv("T_POSTGRESQL_PORT", "p")
 	os.Setenv("T_POSTGRESQL_DB_NAME", "n")
 
-	AppName = "t"
-	sqlS, err := ReadPostgreSQL()
+	sqlS, err := ReadPostgreSQL("t")
 
 	if err != nil {
 		t.Fatal(err)
@@ -59,8 +57,7 @@ func TestPostgreSQL_MissingSSLMode(t *testing.T) {
 func TestPostgreSQL_WrongConfig(t *testing.T) {
 	os.Clearenv()
 
-	AppName = "t"
-	_, err := ReadPostgreSQL()
+	_, err := ReadPostgreSQL("t")
 	if err == nil {
 		t.Fatal("Expect error")
 	}
