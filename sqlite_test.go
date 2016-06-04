@@ -28,7 +28,7 @@ func Test_SQLite(t *testing.T) {
 func Test_WrongSQLiteConfig(t *testing.T) {
 	os.Clearenv()
 
-	_, err := ReadPostgreSQL("t")
+	_, err := ReadSQLite("t")
 	if err == nil {
 		t.Fatal("Expect error")
 	}

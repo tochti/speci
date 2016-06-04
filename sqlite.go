@@ -10,7 +10,7 @@ import (
 
 type (
 	SQLite struct {
-		Path string `envconfig:"SQLITE_PATH", required:"true"`
+		Path string `envconfig:"SQLITE_PATH" required:"true"`
 	}
 )
 
