@@ -1,0 +1,39 @@
+package speci
+
+import (
+	"database/sql"
+	"fmt"
+
+	"github.com/kelseyhightower/envconfig"
+	_ "github.com/mattn/go-sqlite3"
+)
+
+type (
+	SQLite struct {
+		Path string `envconfig:"SQLITE_PATH", required:"true"`
+	}
+)
+
+func ReadSQLite(prefix string) (*SQLite, error) {
+	specs := &SQLite{}
+
+	err := envconfig.Process(prefix, specs)
+	if err != nil {
+		return &SQLite{}, err
+	}
+
+	return specs, nil
+}
+
+func (s *SQLite) DB() (*sql.DB, error) {
+	pool, err := sql.Open("sqlite3", s.Path)
+	if err != nil {
+		return &sql.DB{}, err
+	}
+
+	return pool, nil
+}
+
+func (s *SQLite) String() string {
+	return fmt.Sprintf("sqlite3://%v", s.Path)
+}
