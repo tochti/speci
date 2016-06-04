@@ -19,7 +19,7 @@ func Test_SQLite(t *testing.T) {
 		t.Fatal("Expect nil was %v", err)
 	}
 
-	sqlStr := "sqlite3://:memory:"
+	sqlStr := "file::memory:"
 	if sqlS.String() != sqlStr {
 		t.Fatalf("Expect %v was %v", sqlStr, sqlS.String())
 	}

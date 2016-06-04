@@ -26,7 +26,7 @@ func ReadSQLite(prefix string) (*SQLite, error) {
 }
 
 func (s *SQLite) DB() (*sql.DB, error) {
-	pool, err := sql.Open("sqlite3", s.Path)
+	pool, err := sql.Open("sqlite3", s.String())
 	if err != nil {
 		return &sql.DB{}, err
 	}
@@ -35,5 +35,5 @@ func (s *SQLite) DB() (*sql.DB, error) {
 }
 
 func (s *SQLite) String() string {
-	return fmt.Sprintf("sqlite3://%v", s.Path)
+	return fmt.Sprintf("file:%v", s.Path)
 }
