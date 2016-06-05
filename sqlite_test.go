@@ -14,9 +14,14 @@ func Test_SQLite(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	_, err = sqlS.DB()
+	db, err := sqlS.DB()
 	if err != nil {
 		t.Fatal("Expect nil was %v", err)
+	}
+
+	err = db.Ping()
+	if err != nil {
+		t.Fatal(err)
 	}
 
 	sqlStr := "file::memory:"
