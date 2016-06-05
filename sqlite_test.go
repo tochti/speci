@@ -3,6 +3,8 @@ package speci
 import (
 	"os"
 	"testing"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func Test_SQLite(t *testing.T) {

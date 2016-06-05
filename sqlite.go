@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/kelseyhightower/envconfig"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 type (
